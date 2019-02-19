@@ -1,5 +1,6 @@
 package com.eolinker.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
  * @link https://www.eolinker.com/
  * @package eolinker
  */
+@Data
 @Component
 @PropertySource("file:${user.dir}/config/setting.properties")
 @ConfigurationProperties()
@@ -35,83 +37,4 @@ public class Config {
     private String port;//项目启动端口
     private String path;
 
-    public String getAllowUpdate() {
-        return allowUpdate;
-    }
-
-    public void setAllowUpdate(String allowUpdate) {
-        this.allowUpdate = allowUpdate;
-    }
-
-    public String getAllowRegister() {
-        return allowRegister;
-    }
-
-    public void setAllowRegister(String allowRegister) {
-        this.allowRegister = allowRegister;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getWebSitename() {
-        return webSitename;
-    }
-
-    public void setWebSitename(String webSitename) {
-        this.webSitename = webSitename;
-    }
-
-    public String getDbUrl() {
-        return dbUrl;
-    }
-
-    public void setDbUrl(String dbUrl) {
-        this.dbUrl = dbUrl;
-    }
-
-    public String getDbUser() {
-        return dbUser;
-    }
-
-    public void setDbUser(String dbUser) {
-        this.dbUser = dbUser;
-    }
-
-    public String getDbPassword() {
-        return dbPassword;
-    }
-
-    public void setDbPassword(String dbPassword) {
-        this.dbPassword = dbPassword;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public void setPort(String port) {
-        this.port = port;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

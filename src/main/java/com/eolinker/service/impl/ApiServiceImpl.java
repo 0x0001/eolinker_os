@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -193,7 +195,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(api.getApiID());
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_ADD);
-            projectOperationLog.setOpUerID(api.getUpdateUserID());
+            projectOperationLog.setOpUserID(api.getUpdateUserID());
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return api.getApiID();
 
@@ -356,7 +358,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(api.getApiID());
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_ADD);
-            projectOperationLog.setOpUerID(api.getUpdateUserID());
+            projectOperationLog.setOpUserID(api.getUpdateUserID());
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
 
@@ -391,7 +393,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_DELETE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -425,7 +427,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_OTHERS);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -463,7 +465,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_DELETE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -475,7 +477,6 @@ public class ApiServiceImpl implements ApiService {
      */
     @Override
     public boolean cleanRecyclingStation(Integer projectID, Integer userID) {
-        // TODO Auto-generated method stub
         Integer result = apiMapper.cleanRecyclingStation(projectID);
         if (result > 0) {
             Date date = new Date();
@@ -488,11 +489,11 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_DELETE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     /**
@@ -500,7 +501,6 @@ public class ApiServiceImpl implements ApiService {
      */
     @Override
     public List<Map<String, Object>> getRecyclingStationApiList(Integer projectID, Integer orderBy, Integer asc) {
-        // TODO Auto-generated method stub
         String order = "";
         switch (orderBy) {
             case 0:
@@ -534,8 +534,10 @@ public class ApiServiceImpl implements ApiService {
      * 获取接口详情
      */
     @Override
-    public Map<String, Object> getApi(Integer projectID, Integer apiID, HttpServletRequest request) {
+    public Map<String, Object> getApi(Integer projectID, Integer apiID) {
         // TODO Auto-generated method stub
+
+        final HttpServletRequest request = getRequest();
 
         Map<String, Object> result = apiMapper.getApi(projectID, apiID);
         Map<String, Object> apiJson = JSONObject.parseObject(result.get("apiJson").toString());
@@ -579,6 +581,11 @@ public class ApiServiceImpl implements ApiService {
             apiJson.put("testHistory", testHistoryList);
         }
         return apiJson;
+    }
+
+    private HttpServletRequest getRequest() {
+        final ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return servletRequestAttributes.getRequest();
     }
 
     /**
@@ -674,7 +681,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_UPDATE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         } else
@@ -718,7 +725,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_DELETE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         } else
@@ -856,7 +863,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(t);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_UPDATE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -892,7 +899,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_UPDATE);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -936,7 +943,7 @@ public class ApiServiceImpl implements ApiService {
         projectOperationLog.setOpTargetID(projectID);
         projectOperationLog.setOpTime(updateTime);
         projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_OTHERS);
-        projectOperationLog.setOpUerID(userID);
+        projectOperationLog.setOpUserID(userID);
         projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
         return apiList;
     }
@@ -1068,7 +1075,7 @@ public class ApiServiceImpl implements ApiService {
             projectOperationLog.setOpTargetID(projectID);
             projectOperationLog.setOpTime(updateTime);
             projectOperationLog.setOpType(ProjectOperationLog.OP_TYPE_ADD);
-            projectOperationLog.setOpUerID(userID);
+            projectOperationLog.setOpUserID(userID);
             projectOperationLogMapper.addProjectOperationLog(projectOperationLog);
             return true;
         }
@@ -1079,8 +1086,8 @@ public class ApiServiceImpl implements ApiService {
      * 获取接口mock数据
      */
     @Override
-    public Map<String, Object> getApiMockData(Integer projectID, Integer apiID, HttpServletRequest request) {
-        // TODO Auto-generated method stub
+    public Map<String, Object> getApiMockData(Integer projectID, Integer apiID) {
+        final HttpServletRequest request = getRequest();
         Map<String, Object> data = apiMapper.getApiMockData(projectID, apiID);
         if (data != null && !data.isEmpty()) {
             if (data.get("mockRule") != null) {

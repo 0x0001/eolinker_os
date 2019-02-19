@@ -86,11 +86,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/webapp/");
         try {
             File classPath = new File(ResourceUtils.getURL("classpath:").getPath());
-            if (!classPath.exists())
+            if (!classPath.exists()) {
                 classPath = new File("");
+            }
             File dir = new File(classPath.getAbsolutePath(), "dump");
-            if (!dir.exists() || !dir.isDirectory())
+            if (!dir.exists() || !dir.isDirectory()) {
                 dir.mkdirs();
+            }
             String path = dir.getAbsolutePath();
             registry.addResourceHandler("/dump/**").addResourceLocations("file:" + path + "/");
             registry.addResourceHandler("/config/setting.properties").addResourceLocations(System.getProperty("user.dir") + "/config/setting.properties");

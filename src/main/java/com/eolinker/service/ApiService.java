@@ -49,7 +49,7 @@ public interface ApiService {
     public List<Map<String, Object>> getRecyclingStationApiList(Integer projectID, Integer orderBy, Integer asc);
 
     //获取接口信息
-    public Map<String, Object> getApi(Integer projectID, Integer apiID, HttpServletRequest request);
+    public Map<String, Object> getApi(Integer projectID, Integer apiID);
 
     //获取接口api信息
     public Api getApiInfo(Integer projectID, Integer apiID);
@@ -82,7 +82,7 @@ public interface ApiService {
     public boolean importApi(Integer projectID, Integer groupID, Integer userID, String data);
 
     //获取接口mock数据
-    public Map<String, Object> getApiMockData(Integer projectID, Integer apiID, HttpServletRequest request);
+    public Map<String, Object> getApiMockData(Integer projectID, Integer apiID);
 
     //修改mock数据
     public boolean editApiMockData(Integer projectID, Integer apiID, String mockRule, String mockResult,

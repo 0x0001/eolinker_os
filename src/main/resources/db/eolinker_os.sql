@@ -395,3 +395,8 @@ CREATE TABLE `eo_project_test_case` (
   `caseCode` longtext,
   PRIMARY KEY (`caseID`,`projectID`,`userID`)
 ) DEFAULT CHARSET=utf8;
+
+-- 2019-02-19
+alter table eo_api
+    add column apiMethodType varchar(255) not null default '' comment '请求类型',
+    add column apiMethod varchar(255) not null default '' comment '请求方法';

@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eolinker.mapper.ApiCacheMapper">
 	<insert id="addApiCache" parameterType="ApiCache"
-		useGeneratedKeys="true" keyProperty="valueID">
+		useGeneratedKeys="true" keyProperty="cacheID">
 		INSERT INTO eo_api_cache
 		(eo_api_cache.projectID,eo_api_cache.groupID,eo_api_cache.apiID,eo_api_cache.apiJson,eo_api_cache.starred,eo_api_cache.updateUserID)
 		VALUES
