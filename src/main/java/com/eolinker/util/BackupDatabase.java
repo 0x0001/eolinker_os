@@ -1,5 +1,4 @@
 package com.eolinker.util;
 
-public class BackupDatabase
-{
+public class BackupDatabase {
 }

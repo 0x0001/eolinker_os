@@ -1,6 +1,9 @@
-spring.datasource.url=${dbURL}
-spring.datasource.username=${dbUser}
-spring.datasource.password=${dbPassword}
+#spring.datasource.url=${dbURL}
+#spring.datasource.username=${dbUser}
+#spring.datasource.password=${dbPassword}
+spring.datasource.url=jdbc:mysql://localhost:3306/eolink?characterEncoding=UTF-8
+spring.datasource.username=root
+spring.datasource.password=wokoworks
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 #端口和上下文
 server.port=${port}
